@@ -1,3 +1,6 @@
+package model;
+
+
 public class Beneficiario extends Usuario {
     private String tipo;
     private int prioridade;
