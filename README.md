@@ -1,18 +1,23 @@
-## Getting Started
+# Sistema de Doações
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+##  Descrição
+Sistema desenvolvido em Java para gerenciar doações, incluindo cadastro de doadores, beneficiários e itens.
 
-## Folder Structure
+## Conceitos utilizados
+- Programação Orientada a Objetos (POO)
+- Herança
+- Encapsulamento
+- Polimorfismo
+- ArrayList
 
-The workspace contains two folders by default, where:
+##  Funcionalidades
+- Cadastro de doadores
+- Cadastro de beneficiários
+- Cadastro de itens
+- Listagem de dados
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+##  Diagrama de Classes
+![Diagrama](docs/Diagrama-Doacao.drawio.png)
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Autor
+Davi Silva Dias
