@@ -28,15 +28,23 @@ public class ItemDoacao {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public String getStatus() {
         return status;
     }
 
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Item: " + nome +
+               ", Categoria: " + categoria +
+               ", Quantidade: " + quantidade +
+               ", Status: " + status;
     }
 }

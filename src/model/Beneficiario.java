@@ -1,6 +1,5 @@
 package model;
 
-
 public class Beneficiario extends Usuario {
     private String tipo;
     private int prioridade;
@@ -9,5 +8,14 @@ public class Beneficiario extends Usuario {
         super(id, nome, telefone, email, endereco);
         this.tipo = tipo;
         this.prioridade = prioridade;
+    }
+
+    public int getPrioridade() {
+        return prioridade;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", Tipo: " + tipo + ", Prioridade: " + prioridade;
     }
 }
