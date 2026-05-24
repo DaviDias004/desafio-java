@@ -8,6 +8,7 @@ import java.util.Scanner;
 import model.Doador;
 import model.Beneficiario;
 import model.ItemDoacao;
+import model.Solicitacao;
 
 public class Main {
 
@@ -15,6 +16,7 @@ public class Main {
     static List<Beneficiario> listaBeneficiarios = new ArrayList<>();
     static List<Doador> listaDoadores = new ArrayList<>();
     static int contadorId = 1;
+    static List<Solicitacao> listaSolicitacoes = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -29,7 +31,8 @@ public class Main {
             System.out.println("4 - Listar beneficiários");
             System.out.println("5 - Cadastrar item");
             System.out.println("6 - Listar itens");
-           
+            System.out.println("7 - Criar solicitação");
+            System.out.println("8 - Listar solicitações");
 
             opcao = scanner.nextInt();
             scanner.nextLine();
@@ -58,7 +61,15 @@ public class Main {
                 case 6:
                    listarItens();
                    break;    
+                
+                case 7:
+                   criarSolicitacao(scanner);
+                   break;
 
+                case 8:
+                   listarSolicitacoes();
+                   break; 
+                
                 default:
                     System.out.println("Opção inválida!");
             }
@@ -181,4 +192,82 @@ public class Main {
         }
     }
 }
+
+public static void criarSolicitacao(Scanner scanner) {
+
+    if (listaBeneficiarios.isEmpty()) {
+        System.out.println("Nenhum beneficiário cadastrado.");
+        return;
+    }
+
+    if (listaItens.isEmpty()) {
+        System.out.println("Nenhum item cadastrado.");
+        return;
+    }
+
+    System.out.println("\n--- Beneficiários ---");
+
+    for (int i = 0; i < listaBeneficiarios.size(); i++) {
+        System.out.println(i + " - " + listaBeneficiarios.get(i).getNome());
+    }
+
+    System.out.print("Escolha o beneficiário: ");
+    int indiceBeneficiario = scanner.nextInt();
+    scanner.nextLine();
+
+    Beneficiario beneficiario = listaBeneficiarios.get(indiceBeneficiario);
+
+    System.out.println("\n--- Itens Disponíveis ---");
+
+    for (int i = 0; i < listaItens.size(); i++) {
+        System.out.println(i + " - " + listaItens.get(i).getNome());
+    }
+
+    System.out.print("Escolha o item: ");
+    int indiceItem = scanner.nextInt();
+    scanner.nextLine();
+
+    ItemDoacao item = listaItens.get(indiceItem);
+
+    System.out.print("Quantidade solicitada: ");
+    int quantidade = scanner.nextInt();
+    scanner.nextLine();
+
+    if (quantidade > item.getQuantidade()) {
+        System.out.println("Quantidade indisponível.");
+        return;
+    }
+
+    System.out.print("Justificativa: ");
+    String justificativa = scanner.nextLine();
+
+    Solicitacao solicitacao = new Solicitacao(
+            contadorId++,
+            beneficiario,
+            item,
+            quantidade,
+            justificativa,
+            "PENDENTE"
+    );
+
+    listaSolicitacoes.add(solicitacao);
+
+    System.out.println("Solicitação criada com sucesso!");
+}
+
+public static void listarSolicitacoes() {
+
+    System.out.println("\n--- Lista de Solicitações ---");
+
+    if (listaSolicitacoes.isEmpty()) {
+        System.out.println("Nenhuma solicitação cadastrada.");
+    } else {
+
+        for (Solicitacao s : listaSolicitacoes) {
+            System.out.println(s);
+            System.out.println("-------------------");
+        }
+    }
+}
+
 }

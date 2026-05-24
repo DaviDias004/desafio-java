@@ -14,6 +14,10 @@ public class Beneficiario extends Usuario {
         return prioridade;
     }
 
+    public String getNome() {
+       return super.getNome();
+   } 
+
     @Override
     public String toString() {
         return super.toString() + ", Tipo: " + tipo + ", Prioridade: " + prioridade;
