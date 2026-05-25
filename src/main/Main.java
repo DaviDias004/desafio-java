@@ -4,6 +4,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 import model.Doador;
 import model.Beneficiario;
@@ -33,9 +34,22 @@ public class Main {
             System.out.println("6 - Listar itens");
             System.out.println("7 - Criar solicitação");
             System.out.println("8 - Listar solicitações");
+            System.out.println("9 - Atualizar status da solicitação");
+            System.out.println("10 - Listar solicitações pendentes");
+            System.out.println("11 - Listar itens disponíveis");
+            System.out.println("12 - Listar beneficiários prioritários");
 
-            opcao = scanner.nextInt();
+            try {
+
+             opcao = scanner.nextInt();
+             scanner.nextLine();
+
+         }  catch (InputMismatchException e) {
+
+             System.out.println("Digite apenas números.");
             scanner.nextLine();
+            opcao = -1;
+}
 
             switch (opcao) {
                 case 1:
@@ -70,6 +84,22 @@ public class Main {
                    listarSolicitacoes();
                    break; 
                 
+                case 9:
+                  atualizarStatusSolicitacao(scanner);
+                  break;
+
+                case 10:
+                  listarSolicitacoesPendentes();
+                  break;
+
+                case 11:
+                  listarItensDisponiveis();
+                  break;
+
+                case 12:
+                  listarBeneficiariosPrioritarios();
+                  break;
+
                 default:
                     System.out.println("Opção inválida!");
             }
@@ -79,7 +109,7 @@ public class Main {
         scanner.close();
     }
 
-    // MÉTODO CADASTRAR
+    // METODOS CADASTRAR E LISTAR
     public static void cadastrarDoador(Scanner scanner) {
         System.out.println("\n--- Cadastro de Doador ---");
 
@@ -101,7 +131,7 @@ public class Main {
         System.out.println("Doador cadastrado com sucesso!");
     }
 
-    // MÉTODO LISTAR
+    
     public static void listarDoadores() {
         System.out.println("\n--- Lista de Doadores ---");
 
@@ -267,6 +297,155 @@ public static void listarSolicitacoes() {
             System.out.println(s);
             System.out.println("-------------------");
         }
+    }
+}
+
+public static void atualizarStatusSolicitacao(Scanner scanner) {
+
+    if (listaSolicitacoes.isEmpty()) {
+        System.out.println("Nenhuma solicitação cadastrada.");
+        return;
+    }
+
+    System.out.println("\n--- Solicitações ---");
+
+    for (int i = 0; i < listaSolicitacoes.size(); i++) {
+
+        System.out.println(
+            i + " - " + listaSolicitacoes.get(i)
+        );
+
+        System.out.println("----------------");
+    }
+
+    System.out.print("Escolha a solicitação: ");
+
+    int indice;
+
+    try {
+
+        indice = scanner.nextInt();
+        scanner.nextLine();
+
+    } catch (Exception e) {
+
+        System.out.println("Digite um número válido.");
+        scanner.nextLine();
+        return;
+    }
+
+    if (indice < 0 || indice >= listaSolicitacoes.size()) {
+
+        System.out.println("Solicitação inválida.");
+        return;
+    }
+
+    Solicitacao solicitacao = listaSolicitacoes.get(indice);
+
+    System.out.println("""
+1 - APROVADA
+2 - RECUSADA
+3 - ENTREGUE
+""");
+
+    System.out.print("Novo status: ");
+
+    int opcao;
+
+    try {
+
+        opcao = scanner.nextInt();
+        scanner.nextLine();
+
+    } catch (Exception e) {
+
+        System.out.println("Digite um número válido.");
+        scanner.nextLine();
+        return;
+    }
+
+    switch (opcao) {
+
+        case 1:
+            solicitacao.setStatus("APROVADA");
+            break;
+
+        case 2:
+            solicitacao.setStatus("RECUSADA");
+            break;
+
+        case 3:
+            solicitacao.setStatus("ENTREGUE");
+            break;
+
+        default:
+            System.out.println("Opção inválida.");
+            return;
+    }
+
+    System.out.println("Status atualizado com sucesso!");
+}
+
+public static void listarSolicitacoesPendentes() {
+
+    System.out.println("\n--- Solicitações Pendentes ---");
+
+    boolean encontrou = false;
+
+    for (Solicitacao s : listaSolicitacoes) {
+
+        if (s.getStatus().equalsIgnoreCase("PENDENTE")) {
+
+            System.out.println(s);
+            System.out.println("----------------");
+
+            encontrou = true;
+        }
+    }
+
+    if (!encontrou) {
+        System.out.println("Nenhuma solicitação pendente.");
+    }
+}
+
+public static void listarItensDisponiveis() {
+
+    System.out.println("\n--- Itens Disponíveis ---");
+
+    boolean encontrou = false;
+
+    for (ItemDoacao i : listaItens) {
+
+        if (i.getStatus().equalsIgnoreCase("disponivel")) {
+
+            System.out.println(i);
+            encontrou = true;
+        }
+    }
+
+    if (!encontrou) {
+        System.out.println("Nenhum item disponível.");
+    }
+}
+
+public static void listarBeneficiariosPrioritarios() {
+
+    System.out.println("\n--- Beneficiários Prioritários ---");
+
+    boolean encontrou = false;
+
+    for (Beneficiario b : listaBeneficiarios) {
+
+        if (b.getPrioridade() >= 4) {
+
+            System.out.println(b);
+
+            encontrou = true;
+        }
+    }
+
+    if (!encontrou) {
+        System.out.println("Nenhum beneficiário prioritário.");
     }
 }
 

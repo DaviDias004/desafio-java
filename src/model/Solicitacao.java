@@ -9,19 +9,22 @@ public class Solicitacao {
     private String justificativa;
     private String status;
 
-    public Solicitacao(int id,
-                       Beneficiario beneficiario,
-                       ItemDoacao item,
-                       int quantidadeSolicitada,
-                       String justificativa,
-                       String status) {
-
+    public Solicitacao(int id, Beneficiario beneficiario, ItemDoacao item, int quantidadeSolicitada, String justificativa, String status) {
+       
         this.id = id;
         this.beneficiario = beneficiario;
         this.item = item;
         this.quantidadeSolicitada = quantidadeSolicitada;
         this.justificativa = justificativa;
         this.status = status;
+    }
+
+    public String getStatus() {
+    return status;
+    }
+    
+    public void setStatus(String status) {
+    this.status = status;
     }
 
     @Override
