@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import util.ArquivoUtil;
 
 import model.Doador;
 import model.Beneficiario;
@@ -127,6 +128,12 @@ public class Main {
 
         Doador doador = new Doador(contadorId++, nome, telefone, email, endereco);
         listaDoadores.add(doador);
+
+        ArquivoUtil.salvarDoador(
+         nome + ";" +
+         telefone + ";" +
+         email + ";" +
+         endereco);
 
         System.out.println("Doador cadastrado com sucesso!");
     }
